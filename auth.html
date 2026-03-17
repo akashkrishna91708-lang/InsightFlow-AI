@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>InsightFlow | Secure Access</title>
+    <link rel="stylesheet" href="auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .auth-container { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; }
+        .auth-card { 
+            background: rgba(13, 13, 13, 0.9); border: 1px solid var(--border); 
+            padding: 40px; border-radius: 24px; width: 100%; max-width: 400px; 
+            text-align: center; backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .auth-card h2 { margin-bottom: 10px; font-size: 32px; font-weight: 800; letter-spacing: -1px; }
+        .subtitle { color: var(--text-dim); margin-bottom: 30px; font-size: 14px; }
+        
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 8px; color: #fff; font-size: 13px; font-weight: 600; }
+        .input-group input { 
+            width: 100%; padding: 14px; background: #0a0a0a; border: 1px solid var(--border); 
+            border-radius: 12px; color: white; outline: none; transition: 0.3s;
+        }
+        .input-group input:focus { border-color: #6366f1; box-shadow: 0 0 10px rgba(99, 102, 241, 0.2); }
+        
+        .auth-btn { 
+            width: 100%; background: #fff; color: #000; padding: 14px; 
+            border: none; border-radius: 12px; font-weight: 800; cursor: pointer; 
+            margin-top: 10px; transition: 0.3s;
+        }
+        .auth-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(255,255,255,0.1); }
+        
+        .toggle-link { margin-top: 25px; color: var(--text-dim); font-size: 14px; cursor: pointer; display: block; }
+        .toggle-link span { color: #6366f1; font-weight: 700; }
+    </style>
+</head>
+<body class="landing-page">
+    <div class="glow-bg"></div>
+    
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2 id="authTitle">Welcome Back</h2>
+            <p class="subtitle" id="authSubtitle">Enter your details to access your insights.</p>
+            
+            <form id="authForm">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="userEmail" placeholder="rahul@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="auth-btn" id="submitBtn">Sign In</button>
+            </form>
+            
+            <p class="toggle-link" id="toggleAuth">New to InsightFlow? <span>Create Account</span></p>
+        </div>
+    </div>
+
+    <script>
+        const authForm = document.getElementById('authForm');
+        const authTitle = document.getElementById('authTitle');
+        const submitBtn = document.getElementById('submitBtn');
+        const toggleAuth = document.getElementById('toggleAuth');
+        const authSubtitle = document.getElementById('authSubtitle');
+        let isLogin = true;
+
+        // Toggle between Login and Register
+        toggleAuth.addEventListener('click', () => {
+            isLogin = !isLogin;
+            authTitle.innerText = isLogin ? "Welcome Back" : "Join the Future";
+            authSubtitle.innerText = isLogin ? "Enter your details to access your insights." : "Start your journey with AI-powered data.";
+            submitBtn.innerText = isLogin ? "Sign In" : "Register Now";
+            toggleAuth.innerHTML = isLogin ? "New to InsightFlow? <span>Create Account</span>" : "Already have an account? <span>Sign In</span>";
+        });
+
+        // Form Submit Logic
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('userEmail').value;
+            // Email se naam nikalna (rahul@gmail.com -> rahul)
+            const userName = email.split('@')[0]; 
+
+            // Browser Memory (Local Storage) mein user ka naam save karna
+            localStorage.setItem('activeUser', userName);
+            
+            // Success Message
+            alert(isLogin ? `Welcome back, ${userName}! 👋` : "Account created successfully!");
+            
+            // Flask route '/home' par redirect karna (Index Page)
+            window.location.href = "/index.html"; 
+        });
+    </script>
+</body>
+</html>

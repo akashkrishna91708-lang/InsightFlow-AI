@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsightFlow | Intelligence Unleashed</title>
+    <link rel="stylesheet" href="style2.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="landing-page">
+    <div class="glow-bg"></div>
+    
+    <nav class="navbar">
+        <div class="logo">IF<span>.ai</span></div>
+        <div class="nav-links">
+            <span id="userGreeting" style="color: #6366f1; font-weight: bold; margin-right: 15px;"></span>
+            
+            <div id="authLinks">
+                <a href="/auth.html" class="btn-primary">Login / Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <div class="hero-content">
+            <span class="badge" id="welcomeBadge">Next Generation Analytics</span>
+            <h1>Analyze Data with <br><span class="gradient-text">Conversational AI</span></h1>
+            <p>The bridge between raw data and actionable insights. Built for the future of business intelligence.</p>
+            <div class="cta-group">
+                <a href="/dashboard.html" class="btn-main">Launch Dashboard</a>
+                <button onclick="logout()" class="btn-outline" id="logoutBtn" style="display:none; cursor:pointer;">Logout</button>
+            </div>
+        </div>
+        
+        <div class="bento-grid">
+            <div class="bento-item item-1"><h3>Natural Language</h3><p>Talk to your data like a human.</p></div>
+            <div class="bento-item item-2"><div class="mini-chart"></div><h3>Real-time Charts</h3></div>
+            <div class="bento-item item-3"><h3>Secure Storage</h3><p>Firebase integration out of the box.</p></div>
+            <div class="bento-item item-4"><h3>Powered by Gemini</h3><p>State of the art LLM processing.</p></div>
+        </div>
+    </main>
+
+    <script>
+        window.onload = function() {
+            const name = localStorage.getItem('activeUser');
+            if (name) {
+                // Name dikhao
+                document.getElementById('userGreeting').innerText = "Hi, " + name.toUpperCase() + " 👋";
+                document.getElementById('welcomeBadge').innerText = "Welcome back, " + name;
+                
+                // Buttons toggle karo
+                document.getElementById('authLinks').style.display = 'none';
+                document.getElementById('logoutBtn').style.display = 'inline-block';
+            } else {
+                // Agar bina login ke landing page par aaya hai toh seedha login par bhej do
+                window.location.href = "/auth.html";
+            }
+        };
+
+        function logout() {
+            localStorage.removeItem('activeUser');
+            window.location.href = "/auth.html";
+        }
+    </script>
+</body>
+</html>

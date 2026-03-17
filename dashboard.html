@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsightFlow AI | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="neon-dashboard">
+    <div class="app-shell">
+        
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon-box">IF</div>
+                <h2 class="brand-text">InsightFlow</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="#" class="nav-link"><i data-lucide="bar-chart-3"></i> Analytics</a>
+                <a href="#" class="nav-link"><i data-lucide="database"></i> Datasets</a>
+                <a href="#" class="nav-link"><i data-lucide="settings"></i> Settings</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="ai-input-wrapper">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" id="userQuery" placeholder="Ask AI: 'Analyze last 6 months revenue trend'...">
+                    <button id="generateBtn" class="neon-button">Analyze ✨</button>
+                </div>
+
+                <div class="user-profile">
+                    <div class="user-info-text">
+                        <span id="dashUser" style="color: #fff; font-weight: 600; font-size: 14px; display: block;">User</span>
+                        <button onclick="logout()" style="background:none; border:none; color:#f43f5e; cursor:pointer; font-size:11px; padding:0; text-align:right; width:100%;">Logout</button>
+                    </div>
+                    <img src="" id="userAvatar" class="avatar" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #3b82f6;">
+                </div>
+            </header>
+
+            <section class="dashboard-grid">
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <p class="stat-label">Rows Processed</p>
+                        <h2 class="stat-value">12.5k</h2>
+                    </div>
+                    <div class="stat-card highlight-cyan">
+                        <p class="stat-label">AI Accuracy</p>
+                        <h2 class="stat-value">99%</h2>
+                    </div>
+                </div>
+
+                <div class="bi-container" style="display: flex; flex-direction: column; gap: 20px; grid-column: span 2;">
+                    
+                    <div class="chart-card large" style="background: rgba(15, 23, 42, 0.6); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                        <h3 id="chartTitle" style="color: #22d3ee; margin-bottom: 20px;">Intelligence Overview</h3>
+                        <div id="chartsContainer" style="height: 380px; position: relative;">
+                            <canvas id="currentChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div id="insightBox" style="background: rgba(99, 102, 241, 0.1); border-left: 5px solid #6366f1; padding: 20px; border-radius: 12px; display: none; animation: slideIn 0.5s ease;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                            <i data-lucide="sparkles" style="color: #6366f1; width: 18px;"></i>
+                            <h4 style="color: #6366f1; margin: 0; font-size: 16px;">AI Business Analyst Insight</h4>
+                        </div>
+                        <p id="aiSummary" style="color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0;"></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // 1. Initialize Icons
+        lucide.createIcons();
+
+        // 2. User Personalization
+        const name = localStorage.getItem('activeUser');
+        if (name) {
+            document.getElementById('dashUser').innerText = name.charAt(0).toUpperCase() + name.slice(1);
+            document.getElementById('userAvatar').src = `https://ui-avatars.com/api/?name=${name}&background=3b82f6&color=fff&bold=true`;
+        } else {
+            window.location.href = "/";
+        }
+
+        // 3. Logout
+        function logout() {
+            localStorage.removeItem('activeUser');
+            window.location.href = "/";
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
