@@ -1,0 +1,13 @@
+# 📊 InsightFlow AI - Instant BI Dashboard
+**Topic:** Conversational AI for Instant Business Intelligence.
+
+### 🚀 Features:
+- **AI Analyst:** Powered by Gemini-1.5-Flash.
+- **Instant Charts:** Dynamic Bar, Line, and Pie charts using Chart.js.
+- **Smart Insights:** Automatic business summaries for every query.
+- **Secure Auth:** Google & GitHub integration.
+
+### 🛠️ Setup:
+1. `pip install -r requirements.txt`
+2. Add your API Key in `app.py`.
+3. Run `python app.py` and visit `localhost:5000`.
